@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Short_code_notepad</string>
+    <string name="newButton">NEW</string>
+    <string name="saveButton">SAVE</string>
+    <string name="openButton">OPEN</string>
+    <string name="noteNames">Names of the notes</string>
 </resources>
