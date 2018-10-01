@@ -6,8 +6,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,52 +21,73 @@ import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.Intent;
+
+
 public class MainActivity extends AppCompatActivity {
+    public static final String EXTRA_MESSAGE = "com.example.Short_code_notepad.MESSAGE";
 
     ListView theListView;
-    Intent myIntent;
-
-
     Button newButton, saveButton, openButton;
     EditText text;
     TextView noteNames;
-    ListView listview;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        theListView = (ListView) findViewById(R.id.myListView);
 
-        String[ ] myData = {"Visual Basic .NET", "Java", "Android", "C# .NET", "PHP", "C++", "Scala", "Ruby on Rails", "Javascript", "HTML", "Python", "Swift"};
-
-         File path = new File("/storage/" + "");
-
-
-        File list[] = path.listFiles();
-        for( int i=0; i< list.length; i++)
-        {
-
-        }
-
-        getFilesDir().listFiles().toString();
-
-
-        ArrayAdapter<String> myAdapter = new ArrayAdapter<String>( this, android.R.layout.simple_list_item_1, myData );
-
-        theListView.setAdapter( myAdapter );
 
         newButton = (Button) findViewById(R.id.newButton);
         saveButton = (Button) findViewById(R.id.saveButton);
         openButton = (Button) findViewById(R.id.openButton);
         text = (EditText) findViewById(R.id.text);
-        noteNames = findViewById(R.id.noteNames);
+        theListView = (ListView) findViewById(R.id.myListView);
+
+        File path = new File(getFilesDir().getAbsolutePath());
+
+        File list[] = path.listFiles();
+
+        List fileList = new ArrayList();
+
+        for(File l: list){
+            fileList.add(l.getName().replaceFirst("[.][^.]+$", ""));
+        }
+
+        ArrayAdapter<String> myAdapter = new ArrayAdapter<String>( this, android.R.layout.simple_list_item_1, fileList );
+
+        theListView.setAdapter( myAdapter );
+
+        theListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
 
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                // Get the selected item text from ListView
+                String selectedItem = (String) parent.getItemAtPosition(position);
+
+                // Display the selected item text on TextView
+//                text.setText("Your favorite : " + selectedItem);
+                int c;
+                text.setText("");
+
+                try {
+                    FileInputStream fin = openFileInput(selectedItem + ".txt");
+
+                    while ((c = fin.read()) != -1) {
+                        text.setText((text.getText().toString() + Character.toString((char) c)));
+                    }
+                } catch (Exception e) {
+                    Toast.makeText(getApplicationContext(), "Error Occured: " + e, Toast.LENGTH_LONG).show();
+                }
+
+            }
+
+        });
     }
-
-
 
     public void buttonAction(View v) {
         final EditText fileName = new EditText(this);
@@ -82,14 +103,13 @@ public class MainActivity extends AppCompatActivity {
                     try {
                         FileOutputStream fout = openFileOutput(fileName.getText().toString() + ".txt", MODE_PRIVATE);
                         fout.write(text.getText().toString().getBytes());
-
-
-//                        noteNames.setText(fileName.getText().toString());
-
+                        finish();
+                        startActivity(getIntent());
 
                     } catch (Exception e) {
                         Toast.makeText(getApplicationContext(), "Error Occured: " + e, Toast.LENGTH_LONG).show();
                     }
+
                 }
             });
 
@@ -101,6 +121,7 @@ public class MainActivity extends AppCompatActivity {
             });
 
             ad.show();
+
 
         }
 
@@ -122,9 +143,6 @@ public class MainActivity extends AppCompatActivity {
 
                         }
 
-//                        noteNames.setText(getFilesDir().listFiles().toString());
-
-
                     } catch (Exception e) {
                         Toast.makeText(getApplicationContext(), "Error Occured: " + e, Toast.LENGTH_LONG).show();
                     }
@@ -143,6 +161,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (v.getId() == R.id.newButton) {
             text.setText("");
+
         }
     }
 }
