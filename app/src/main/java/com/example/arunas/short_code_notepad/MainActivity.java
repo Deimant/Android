@@ -3,7 +3,6 @@ package com.example.arunas.short_code_notepad;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -21,14 +20,11 @@ import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.content.Intent;
-
-
 public class MainActivity extends AppCompatActivity {
     public static final String EXTRA_MESSAGE = "com.example.Short_code_notepad.MESSAGE";
 
     ListView theListView;
-    Button newButton, saveButton, openButton;
+    Button newButton, saveButton, deleteButton;
     EditText text;
     TextView noteNames;
 
@@ -38,11 +34,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-
         newButton = (Button) findViewById(R.id.newButton);
         saveButton = (Button) findViewById(R.id.saveButton);
-        openButton = (Button) findViewById(R.id.openButton);
+        deleteButton = (Button) findViewById(R.id.deleteButton);
         text = (EditText) findViewById(R.id.text);
         theListView = (ListView) findViewById(R.id.myListView);
 
@@ -61,7 +55,6 @@ public class MainActivity extends AppCompatActivity {
         theListView.setAdapter( myAdapter );
 
         theListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -125,10 +118,10 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
-        if (v.getId() == R.id.openButton) {
-            ad.setMessage("Open File");
+        if (v.getId() == R.id.deleteButton) {
+            ad.setMessage("Delete File");
 
-            ad.setPositiveButton("Open", new DialogInterface.OnClickListener() {
+            ad.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
 
@@ -139,8 +132,11 @@ public class MainActivity extends AppCompatActivity {
                         FileInputStream fin = openFileInput(fileName.getText().toString() + ".txt");
 
                         while ((c = fin.read()) != -1) {
-                            text.setText((text.getText().toString() + Character.toString((char) c)));
 
+                            deleteFile(fileName.getText().toString() + ".txt");
+
+                            finish();
+                            startActivity(getIntent());
                         }
 
                     } catch (Exception e) {
