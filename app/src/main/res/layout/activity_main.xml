@@ -8,6 +8,7 @@
 
     <Button
         android:id="@+id/deleteButton"
+        style="@android:style/Widget.Material.Button.Borderless"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="41dp"
@@ -17,17 +18,20 @@
         android:layout_marginBottom="16dp"
         android:onClick="buttonAction"
         android:text="@string/deleteButton"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/saveButton" />
 
     <Button
         android:id="@+id/saveButton"
+        style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="87dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:onClick="buttonAction"
         android:text="@string/saveButton"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/deleteButton"
         app:layout_constraintHorizontal_bias="0.5"
@@ -35,6 +39,7 @@
 
     <Button
         android:id="@+id/newButton"
+        style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -42,8 +47,10 @@
         android:layout_marginEnd="43dp"
         android:layout_marginRight="43dp"
         android:layout_marginBottom="16dp"
+        android:lineSpacingExtra="10sp"
         android:onClick="buttonAction"
         android:text="@string/newButton"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/saveButton"
         app:layout_constraintStart_toStartOf="parent" />
@@ -51,13 +58,13 @@
     <EditText
         android:id="@+id/text"
         android:layout_width="0dp"
-        android:layout_height="204dp"
+        android:layout_height="184dp"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="16dp"
         android:ems="10"
         android:gravity="top"
         android:inputType="textMultiLine"
@@ -75,7 +82,7 @@
         android:layout_marginLeft="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toTopOf="@+id/deleteButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

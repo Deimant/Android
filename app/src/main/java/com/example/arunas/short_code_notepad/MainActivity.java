@@ -3,6 +3,7 @@ package com.example.arunas.short_code_notepad;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -33,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        getWindow().getDecorView().setBackgroundColor(Color.rgb(255, 255, 204));
 
         newButton = (Button) findViewById(R.id.newButton);
         saveButton = (Button) findViewById(R.id.saveButton);
@@ -88,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
         ad.setView(fileName);
 
         if (v.getId() == R.id.saveButton) {
-            ad.setMessage("Save File");
+            ad.setMessage("Save Record");
 
             ad.setPositiveButton("Save", new DialogInterface.OnClickListener() {
                 @Override
@@ -119,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         if (v.getId() == R.id.deleteButton) {
-            ad.setMessage("Delete File");
+            ad.setMessage("Delete Record");
 
             ad.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
                 @Override
