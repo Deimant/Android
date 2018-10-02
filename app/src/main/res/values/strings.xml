@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Short_code_notepad</string>
+    <string name="app_name">Quick notes</string>
     <string name="newButton">NEW</string>
     <string name="saveButton">SAVE</string>
     <string name="openButton">OPEN</string>
