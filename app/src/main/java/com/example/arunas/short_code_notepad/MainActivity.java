@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
 
     ListView theListView;
     Button newButton, editButton, deleteButton;
-    TextView text;
+    TextView noteText, nameText;
     TextView noteNames;
 
     @Override
@@ -39,7 +39,8 @@ public class MainActivity extends AppCompatActivity {
         newButton = (Button) findViewById(R.id.newButton);
         editButton = (Button) findViewById(R.id.editButton);
         deleteButton = (Button) findViewById(R.id.deleteButton);
-        text = (TextView) findViewById(R.id.text);
+        noteText = (TextView) findViewById(R.id.noteText);
+        nameText = (TextView) findViewById(R.id.nameText);
         theListView = (ListView) findViewById(R.id.myListView);
 
         File path = new File(getFilesDir().getAbsolutePath());
@@ -63,62 +64,54 @@ public class MainActivity extends AppCompatActivity {
 
                 // Get the selected item text from ListView
                 String selectedItem = (String) parent.getItemAtPosition(position);
+                int pos = position;
 
                 // Display the selected item text on TextView
 //                text.setText("Your favorite : " + selectedItem);
 
-                Integer pos = theListView.getSelectedItemPosition();
-                myAdapter.remove(fileList.get(0));
-
-
                 int c;
-                text.setText("");
+                noteText.setText("");
                 try {
                     FileInputStream fin = openFileInput(selectedItem + ".txt");
 
                     while ((c = fin.read()) != -1) {
-                        text.setText((text.getText().toString() + Character.toString((char) c)));
+                        nameText.setText(selectedItem);
+                        noteText.setText((noteText.getText().toString() + Character.toString((char) c)));
                     }
                 } catch (Exception e) {
                     Toast.makeText(getApplicationContext(), "Error Occured: " + e, Toast.LENGTH_LONG).show();
                 }
             }
 
+
         });
+
+        theListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+
+                int selItPos = theListView.getSelectedItemPosition();
+
+                final String pavadinimas =  (String) theListView.getItemAtPosition(selItPos);
+
+                noteText.setText("Your favorite : " + pavadinimas);
+
+//                deleteFile(pavadinimas + ".txt");
+
+
+                return false;
+            }
+
+        });
+
+
     }
 
     public void buttonAction(View v) {
         final EditText fileName = new EditText(this);
         AlertDialog.Builder ad = new AlertDialog.Builder(this);
         ad.setView(fileName);
-
-
-        if (v.getId() == R.id.deleteButton) {
-            ad.setMessage("Delete Record");
-
-            ad.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    try {
-//                        deleteFile(fileName.getText().toString() + ".txt");
-                        deleteFile("kkkkkk");
-                        finish();
-                        startActivity(getIntent());
-                    } catch (Exception e) {
-                        Toast.makeText(getApplicationContext(), "Error Occured: " + e, Toast.LENGTH_LONG).show();
-                    }
-                }
-            });
-
-            ad.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.cancel();
-                }
-            });
-
-            ad.show();
-        }
 
         if (v.getId() == R.id.newButton) {
             Intent intent = new Intent(this, DisplayNote.class);
@@ -127,28 +120,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-//    public void deleteMessage(View view) {
-//
-////                Object failoVardas = theListView.getSelectedItem();
-//
-//
-//        text.setText("Your favorite : ");
-//
-//            theListView.getSelectedItem().;
-//
-//
-//        String uri = theListView.g;
-//        File file = new File (uri);
-//        file.delete();
-//
-////        try {
-////            deleteFile();
-////            finish();
-////            startActivity(getIntent());
-////        } catch (Exception e) {
-////            Toast.makeText(getApplicationContext(), "Error Occured: " + e, Toast.LENGTH_LONG).show();
-////        }
-//    }
+    public void deleteMessage(View view) {
+
+        deleteFile(nameText.getText() + ".txt");
+
+         finish();
+         startActivity(getIntent());
+    }
+
+    public void newMessage(View view) {
+
+        Intent intent = new Intent(this, DisplayNote.class);
+        startActivity(intent);
+    }
+
 }
-
-

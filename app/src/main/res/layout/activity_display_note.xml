@@ -8,7 +8,7 @@
 
     <EditText
         android:id="@+id/enterNote"
-        android:layout_width="0dp"
+        android:layout_width="365dp"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
@@ -41,8 +41,8 @@
 
     <EditText
         android:id="@+id/enterNoteName"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="362dp"
+        android:layout_height="50dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
@@ -53,6 +53,7 @@
         app:layout_constraintBottom_toTopOf="@+id/enterNote"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
 </android.support.constraint.ConstraintLayout>

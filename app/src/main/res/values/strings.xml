@@ -8,4 +8,6 @@
     <string name="noteName">Name</string>
     <string name="enterNote">Enter note</string>
     <string name="editButton">EDIT</string>
+    <string name="noteText">Note text</string>
+    <string name="nameText">Name text</string>
 </resources>
