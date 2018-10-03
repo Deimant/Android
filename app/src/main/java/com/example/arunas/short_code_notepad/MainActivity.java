@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.SparseBooleanArray;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -18,7 +19,6 @@ import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,8 +26,8 @@ public class MainActivity extends AppCompatActivity {
     public static final String EXTRA_MESSAGE = "com.example.Short_code_notepad.MESSAGE";
 
     ListView theListView;
-    Button newButton, saveButton, deleteButton;
-    EditText text;
+    Button newButton, editButton, deleteButton;
+    TextView text;
     TextView noteNames;
 
     @Override
@@ -37,22 +37,22 @@ public class MainActivity extends AppCompatActivity {
         getWindow().getDecorView().setBackgroundColor(Color.rgb(255, 255, 204));
 
         newButton = (Button) findViewById(R.id.newButton);
-        saveButton = (Button) findViewById(R.id.saveButton);
+        editButton = (Button) findViewById(R.id.editButton);
         deleteButton = (Button) findViewById(R.id.deleteButton);
-        text = (EditText) findViewById(R.id.text);
+        text = (TextView) findViewById(R.id.text);
         theListView = (ListView) findViewById(R.id.myListView);
 
         File path = new File(getFilesDir().getAbsolutePath());
 
         File list[] = path.listFiles();
 
-        List fileList = new ArrayList();
+        final List fileList = new ArrayList();
 
         for (File l : list) {
             fileList.add(l.getName().replaceFirst("[.][^.]+$", ""));
         }
 
-        ArrayAdapter<String> myAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, fileList);
+        final ArrayAdapter<String> myAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, fileList);
 
         theListView.setAdapter(myAdapter);
 
@@ -66,9 +66,13 @@ public class MainActivity extends AppCompatActivity {
 
                 // Display the selected item text on TextView
 //                text.setText("Your favorite : " + selectedItem);
+
+                Integer pos = theListView.getSelectedItemPosition();
+                myAdapter.remove(fileList.get(0));
+
+
                 int c;
                 text.setText("");
-
                 try {
                     FileInputStream fin = openFileInput(selectedItem + ".txt");
 
@@ -88,35 +92,6 @@ public class MainActivity extends AppCompatActivity {
         AlertDialog.Builder ad = new AlertDialog.Builder(this);
         ad.setView(fileName);
 
-        if (v.getId() == R.id.saveButton) {
-            ad.setMessage("Save Record");
-
-            ad.setPositiveButton("Save", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    try {
-                        FileOutputStream fout = openFileOutput(fileName.getText().toString() + ".txt", MODE_PRIVATE);
-                        fout.write(text.getText().toString().getBytes());
-                        finish();
-                        startActivity(getIntent());
-
-                    } catch (Exception e) {
-                        Toast.makeText(getApplicationContext(), "Error Occured: " + e, Toast.LENGTH_LONG).show();
-                    }
-                }
-            });
-
-            ad.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.cancel();
-                }
-            });
-
-            ad.show();
-
-
-        }
 
         if (v.getId() == R.id.deleteButton) {
             ad.setMessage("Delete Record");
@@ -124,21 +99,11 @@ public class MainActivity extends AppCompatActivity {
             ad.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-
-                    int c;
-                    text.setText("");
-
                     try {
-                        FileInputStream fin = openFileInput(fileName.getText().toString() + ".txt");
-
-                        while ((c = fin.read()) != -1) {
-
-                            deleteFile(fileName.getText().toString() + ".txt");
-
-                            finish();
-                            startActivity(getIntent());
-                        }
-
+//                        deleteFile(fileName.getText().toString() + ".txt");
+                        deleteFile("kkkkkk");
+                        finish();
+                        startActivity(getIntent());
                     } catch (Exception e) {
                         Toast.makeText(getApplicationContext(), "Error Occured: " + e, Toast.LENGTH_LONG).show();
                     }
@@ -160,5 +125,30 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         }
     }
+
+
+//    public void deleteMessage(View view) {
+//
+////                Object failoVardas = theListView.getSelectedItem();
+//
+//
+//        text.setText("Your favorite : ");
+//
+//            theListView.getSelectedItem().;
+//
+//
+//        String uri = theListView.g;
+//        File file = new File (uri);
+//        file.delete();
+//
+////        try {
+////            deleteFile();
+////            finish();
+////            startActivity(getIntent());
+////        } catch (Exception e) {
+////            Toast.makeText(getApplicationContext(), "Error Occured: " + e, Toast.LENGTH_LONG).show();
+////        }
+//    }
 }
+
 

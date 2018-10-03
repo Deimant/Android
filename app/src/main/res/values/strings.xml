@@ -7,4 +7,5 @@
     <string name="noteNames">Names of the notes</string>
     <string name="noteName">Name</string>
     <string name="enterNote">Enter note</string>
+    <string name="editButton">EDIT</string>
 </resources>
