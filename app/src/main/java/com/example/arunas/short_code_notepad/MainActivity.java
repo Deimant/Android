@@ -43,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
         nameText = (TextView) findViewById(R.id.nameText);
         theListView = (ListView) findViewById(R.id.myListView);
 
+        noteText.setKeyListener(null);
+
         File path = new File(getFilesDir().getAbsolutePath());
 
         File list[] = path.listFiles();
@@ -91,14 +93,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 
-                int selItPos = theListView.getSelectedItemPosition();
+                final String pavadinimas =  (String) parent.getItemAtPosition(position);
+                deleteFile(pavadinimas + ".txt");
 
-                final String pavadinimas =  (String) theListView.getItemAtPosition(selItPos);
-
-                noteText.setText("Your favorite : " + pavadinimas);
-
-//                deleteFile(pavadinimas + ".txt");
-
+                myAdapter.remove(pavadinimas);
 
                 return false;
             }
