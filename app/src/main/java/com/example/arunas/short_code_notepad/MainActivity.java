@@ -1,29 +1,24 @@
 package com.example.arunas.short_code_notepad;
 
-
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.SparseBooleanArray;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    public static final String EXTRA_MESSAGE = "com.example.Short_code_notepad.MESSAGE";
+    public static final String EXTRA_MESSAGE_NAME = "com.example.Short_code_notepad.MESSAGE_NAME";
+    public static final String EXTRA_MESSAGE_BODY = "com.example.Short_code_notepad.MESSAGE_BODY";
 
     ListView theListView;
     Button newButton, editButton, deleteButton;
@@ -64,12 +59,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                // Get the selected item text from ListView
                 String selectedItem = (String) parent.getItemAtPosition(position);
-                int pos = position;
-
-                // Display the selected item text on TextView
-//                text.setText("Your favorite : " + selectedItem);
 
                 int c;
                 noteText.setText("");
@@ -93,43 +83,55 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 
-                final String pavadinimas =  (String) parent.getItemAtPosition(position);
+                final String pavadinimas = (String) parent.getItemAtPosition(position);
                 deleteFile(pavadinimas + ".txt");
 
                 myAdapter.remove(pavadinimas);
 
                 return false;
             }
-
         });
-
-
     }
 
-    public void buttonAction(View v) {
-        final EditText fileName = new EditText(this);
-        AlertDialog.Builder ad = new AlertDialog.Builder(this);
-        ad.setView(fileName);
+    public void deleteMessage(View view) {
+        nameText = (TextView) findViewById(R.id.nameText);
+        String editName = nameText.getText().toString();
 
-        if (v.getId() == R.id.newButton) {
-            Intent intent = new Intent(this, DisplayNote.class);
-            startActivity(intent);
+        if (editName != "") {
+        deleteFile(nameText.getText() + ".txt");
+        finish();
+        startActivity(getIntent());
+        } else {
+            Toast.makeText(MainActivity.this, "Select a note to delete.", Toast.LENGTH_SHORT).show();
         }
     }
 
-
-    public void deleteMessage(View view) {
-
-        deleteFile(nameText.getText() + ".txt");
-
-         finish();
-         startActivity(getIntent());
-    }
-
     public void newMessage(View view) {
-
         Intent intent = new Intent(this, DisplayNote.class);
         startActivity(intent);
     }
 
+    public void editMessage(View view) {
+
+        nameText = (TextView) findViewById(R.id.nameText);
+        noteText = (TextView) findViewById(R.id.noteText);
+
+        String editName = nameText.getText().toString();
+        String editNote = noteText.getText().toString();
+
+        if (editName != "") {
+            Intent intent = new Intent(this, DisplayNote.class);
+            startActivity(intent);
+            intent.putExtra(EXTRA_MESSAGE_NAME, editName);
+            intent.putExtra(EXTRA_MESSAGE_BODY, editNote);
+            startActivity(intent);
+        } else {
+            Toast.makeText(MainActivity.this, "Select a note to edit.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void clock(View view) {
+        Intent intent = new Intent(this, Maiiiii.class);
+        startActivity(intent);
+    }
 }

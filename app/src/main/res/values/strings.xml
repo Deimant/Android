@@ -5,7 +5,7 @@
     <string name="openButton">OPEN</string>
     <string name="deleteButton">DELETE</string>
     <string name="noteNames">Names of the notes</string>
-    <string name="noteName">Name</string>
+    <string name="noteName">Enter name</string>
     <string name="enterNote">Enter note</string>
     <string name="editButton">EDIT</string>
     <string name="noteText">Note text</string>
