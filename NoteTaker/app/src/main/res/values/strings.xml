@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Note Taker</string>
+    <string name="settings">settings</string>
+    <string name="create">create</string>
+    <string name="save_note">save note</string>
+    <string name="cancel1">cancel</string>
+    <string name="update">update</string>
+    <string name="cancel2">cancel</string>
+    <string name="cancel3">cancel</string>
+    <string name="delete">delete</string>
+</resources>

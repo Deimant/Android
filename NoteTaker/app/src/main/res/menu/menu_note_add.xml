@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!-- SAVE NOTE -->
+    <item
+        android:id="@+id/action_save_note"
+        android:enabled="true"
+        android:icon="@android:drawable/ic_menu_save"
+        android:orderInCategory="0"
+        android:title="save_note"
+        app:showAsAction="always" />
+
+    <!-- CANCEL THE NOTE -->
+    <item
+        android:id="@+id/action_cancel"
+        android:enabled="true"
+        android:icon="@android:drawable/ic_menu_revert"
+        android:orderInCategory="10"
+        android:title="cancel"
+        app:showAsAction="ifRoom" />
+
+
+</menu>
