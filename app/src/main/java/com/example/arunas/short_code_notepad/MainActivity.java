@@ -129,9 +129,4 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(MainActivity.this, "Select a note to edit.", Toast.LENGTH_SHORT).show();
         }
     }
-
-    public void clock(View view) {
-        Intent intent = new Intent(this, Maiiiii.class);
-        startActivity(intent);
-    }
 }
