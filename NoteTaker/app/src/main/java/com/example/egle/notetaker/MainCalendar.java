@@ -3,15 +3,21 @@ package com.example.egle.notetaker;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.CalendarView;
+import android.widget.TextClock;
 
 public class
 MainCalendar extends AppCompatActivity  {
 
 
+    public static final String TAG ="MainCalendar";
+
+    private CalendarView mCallendarView;
 
     private Button button;
 
@@ -34,12 +40,31 @@ MainCalendar extends AppCompatActivity  {
 
             }
         });
+
+        TextClock clock = (TextClock) findViewById(R.id.clock1);
+
+        Intent incomingIntent = getIntent();
+        String date = incomingIntent.getStringExtra("date");
+//        theDate.setText(date);
+        mCallendarView = (CalendarView) findViewById(R.id.calendarView);
+        mCallendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(CalendarView calendarView, int year, int month, int dayOfMonth) {
+                String date = (year) + "/" + month + dayOfMonth;
+                Log.d(TAG,"oneSelectedDayChange: mm/dd/yyyy" + date);
+                Intent intent = new Intent(MainCalendar.this, NoteActivity.class);
+                intent.putExtra("date", date);
+                startActivity(intent);
+            }
+        });
     }
 
     public void openTimeClockActivity() {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
+
+
 
 
 }

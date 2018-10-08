@@ -4,8 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#64fc99"
+    android:background="@drawable/rec2"
     tools:context=".NoteActivity">
+    
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:adjustViewBounds="false"
+        android:background="@drawable/rec1"
+        android:visibility="visible" />
 
     <EditText
         android:id="@+id/note_ed_title"
